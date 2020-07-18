@@ -1,14 +1,17 @@
 import uuid as uuid_lib #pip install uuid
-from django.utils.encoding import python_2_unicode_compatible
+# from django.utils.encoding import python_2_unicode_compatible
 from django.db import models
 
 # Create your models here
 
 #@python_2_unicode_compatible # For Python 3.5+ and 2.7
 class Table(models.Model):
-    uuid = models.UUIDField(db_index=True, default=uuid_lib.uuid4, editable=False)
+    id = models.UUIDField(
+        db_index=True, default=uuid_lib.uuid4, editable=False, unique=True,
+        primary_key=True
+    )
     name_table = models.CharField(max_length=255)
-    # background_table = models.ImageField()
+    background_table = models.ImageField(upload_to='media')
 
     def __str__(self):
         return str(self.name_table)
